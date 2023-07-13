@@ -21,6 +21,7 @@ export const authApi = apiSlice.injectEndpoints({
             })
           );
           dispatch(
+            // console.log(result),
             adminLoggedIn({
               accessToken: result.data.token,
               user: result.data,

@@ -48,7 +48,7 @@ const AddProduct = () => {
             <Link to="/products" className="btn btn-danger text-white">
               Go to products
             </Link>
-            <h2 className="content-title">Add Products</h2>
+            <h2 className="content-title">Add Product</h2>
             <div>
               <button className="btn btn-primary" type="submit">
                 Publish now
