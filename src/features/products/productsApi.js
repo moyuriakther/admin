@@ -74,8 +74,7 @@ export const quizMarkApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
-          const { data: product } = await queryFulfilled;
-          console.log(product);
+          await queryFulfilled;
           dispatch(
             apiSlice.util.updateQueryData(
               "allProductsList",
