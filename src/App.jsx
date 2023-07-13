@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import PrivateRoute from "./PrivateRoute";
+import UserScreen from "./screens/UserScreen";
+import HomeScreen from "./screens/HomeScreen";
+import LoginScreen from "./screens/LoginScreen";
+import ProductsScreen from "./screens/ProductsScreen";
+import AddProductScreen from "./screens/AddProductScreen";
+import EditProductScreen from "./screens/EditProductScreen";
+import CategoriesScreen from "./screens/CategoriesScreen";
+import OrderScreen from "./screens/OrderScreen";
+import OrderDetailsScreen from "./screens/OrderDetailsScreen";
+import NotFound from "./screens/NotFound";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <HomeScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/login" element={<LoginScreen />} />
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              <ProductsScreen />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/addproduct"
+          element={
+            <PrivateRoute>
+              <AddProductScreen />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/product/:productId/edit"
+          element={
+            <PrivateRoute>
+              <EditProductScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/category"
+          element={
+            <PrivateRoute>
+              <CategoriesScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <PrivateRoute>
+              <OrderScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/order/:id"
+          element={
+            <PrivateRoute>
+              <OrderDetailsScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <PrivateRoute>
+              <UserScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/sellers" element={<UserScreen />} />
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
