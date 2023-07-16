@@ -3,21 +3,24 @@ import { apiSlice } from "../api/apiSlice";
 export const quizMarkApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     allProductsList: builder.query({
-      query: () => `/api/products/allProducts`,
+      query: () => `/api/products/all`,
     }),
     getSingleProduct: builder.query({
       query: (id) => `api/products/${id}`,
     }),
     createProduct: builder.mutation({
-      query: (data) => ({
-        url: `/api/products`,
-        method: "POST",
-        body: data,
-      }),
+      query: (data) => (
+        console.log(data),
+        {
+          url: `/api/products`,
+          method: "POST",
+          body: data,
+        }
+      ),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const { data: product } = await queryFulfilled;
-          // console.log(product);
+          console.log(product);
           dispatch(
             apiSlice.util.updateQueryData(
               "allProductsList",
@@ -42,14 +45,9 @@ export const quizMarkApi = apiSlice.injectEndpoints({
         try {
           const { data: product } = await queryFulfilled;
           dispatch(
-            apiSlice.util.updateQueryData(
-              "getSingleProduct",
-              arg._id,
-              (draft) => {
-                console.log(draft);
-                return product;
-              }
-            )
+            apiSlice.util.updateQueryData("getSingleProduct", arg._id, () => {
+              return product;
+            })
           );
           dispatch(
             apiSlice.util.updateQueryData(

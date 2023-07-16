@@ -22,6 +22,7 @@ const AddProduct = () => {
   const [countInStock, setCountInStock] = useState(0);
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,12 +32,14 @@ const AddProduct = () => {
       setImage("");
       setName("");
       setPrice(0);
+      setCategory("");
     }
   }, [isSuccess]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createProduct({ name, image, price, description, countInStock });
+    createProduct({ name, image, price, description, countInStock, category });
+    console.log({ name, image, price, description, countInStock, category });
   };
 
   return (
@@ -102,6 +105,27 @@ const AddProduct = () => {
                       id="product_stock"
                       required
                     />
+                  </div>
+                  <div className="mb-4">
+                    <label className="form-label" htmlFor="product_category">
+                      Select Category
+                    </label>
+                    <input
+                      list="select-category"
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      type="text"
+                      placeholder="Select Product Category"
+                      className="form-control"
+                      id="product_category"
+                      required
+                    />{" "}
+                    <datalist id="select-category">
+                      <option value="Men Shoe"></option>
+                      <option value="Women Shoe "></option>
+                      {/* <option value="Select Category"></option> */}
+                    </datalist>
+                    {/* </input> */}
                   </div>
                   <div className="mb-4">
                     <label className="form-label" htmlFor="product_description">

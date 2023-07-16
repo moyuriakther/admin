@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import fevIcon from "../images/favicon.png";
-// import { useDispatch } from "react-redux";
-// import { logOut } from "../Redux/Actions/userActions";
+import { useDispatch } from "react-redux";
+import { updateFilters } from "../features/searchSlice";
+import { adminLoggedOut } from "../features/auth/authSlice";
 
 const Header = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     console.log("bo");
@@ -30,31 +33,39 @@ const Header = () => {
     });
   }, []);
 
-  // const handleLogout = () => {
-  //   dispatch(logOut());
-  //   localStorage.clear();
-  // };
+  const handleLogout = () => {
+    dispatch(adminLoggedOut());
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateFilters({ search: searchValue }));
+    console.log(e.target.value);
+  };
   return (
     <header className="main-header navbar">
       <div className="col-search">
-        <form className="searchform">
+        <form className="searchform" onSubmit={handleSubmit}>
           <div className="input-group">
             <input
               list="search-terms"
               type="text"
               className="form-control"
               placeholder="Search term"
+              onChange={(e) => setSearchValue(e.target.value)}
             />
-            <button className="btn btn-light bg" type="button">
+            {/* <button className="btn btn-light bg" type="button">
               <i className="far fa-search"></i>
-            </button>
+            </button> */}
           </div>
-          <datalist id="search-terms">
-            <option value="Products"></option>
-            <option value="New orders"></option>
-            <option value="Apple iphone"></option>
-            <option value="Moyuri akther"></option>
-          </datalist>
+          {/* <datalist id="search-terms">
+            <option value="Products">Products</option>
+            <option value="New orders">New orders</option>
+            <option value="Apple iphone">Apple iphone</option>
+            <option value="Moyuri akther">Moyuri akther</option>
+          </datalist> */}
         </form>
       </div>
       <div className="col-nav">
@@ -94,9 +105,9 @@ const Header = () => {
               <Link
                 className="dropdown-item text-danger"
                 to="#"
-                // onClick={handleLogout}
+                onClick={handleLogout}
               >
-                Exit
+                Logout
               </Link>
             </div>
           </li>

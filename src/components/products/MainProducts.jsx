@@ -2,9 +2,10 @@
 import { Link } from "react-router-dom";
 import Product from "./Product";
 import { useAllProductsListQuery } from "../../features/products/productsApi";
-// import { useDispatch, useSelector } from "react-redux";
 import Loading from "../loadingErrors/Loading";
 import Error from "../loadingErrors/Error";
+import { useDispatch, useSelector } from "react-redux";
+import { updateFilters } from "../../features/searchSlice";
 
 const MainProducts = () => {
   const {
@@ -13,20 +14,46 @@ const MainProducts = () => {
     isError,
     error,
   } = useAllProductsListQuery();
-  // const dispatch = useDispatch();
-  // const productList = useSelector((state) => state.productList);
-  // const { loading, error, products } = productList;
+  const dispatch = useDispatch();
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(updateFilters({ search: e.target.value }));
+  };
+  const filters = useSelector((state) => state.filters);
+  const { search } = filters;
 
-  // const productDelete = useSelector((state) => state.productDelete);
-  // const {
-  //   loading: deleteLoading,
-  //   error: deleteError,
-  //   success: successDelete,
-  // } = productDelete;
-
-  // useEffect(() => {
-  //   dispatch(allProductsList());
-  // }, [dispatch, successDelete]);
+  const searchProduct = (product) => {
+    if (search) {
+      return product?.name
+        .trim()
+        .toLowerCase()
+        .includes(search.trim().toLowerCase());
+    } else {
+      return true;
+    }
+  };
+  // decide what to render
+  let content = null;
+  if (isLoading) {
+    content = <Loading />;
+  }
+  if (!isLoading && isError) {
+    content = <Error variant="alert-danger">{error}</Error>;
+  } else if (!isLoading && !isError && products.length === 0) {
+    content = <div>Products Not available</div>;
+  } else if (!isLoading && !isError && products.length > 0) {
+    const productToShow = products?.filter(searchProduct);
+    content = (
+      <div className="row">
+        {" "}
+        {productToShow?.length > 0
+          ? productToShow
+              ?.filter(searchProduct)
+              .map((product, i) => <Product product={product} key={i} />)
+          : "No task found"}
+      </div>
+    );
+  }
   return (
     <section className="content-main">
       <div className="content-header">
@@ -42,9 +69,10 @@ const MainProducts = () => {
           <div className="row gx-3 py-3">
             <div className="col-lg-4 col-md-6 me-auto">
               <input
-                type="search"
+                type="text"
                 placeholder="search"
                 className="form-control p-2"
+                onChange={handleSearch}
               />
             </div>
             <div className="col-lg-2 col-6 col-md-3">
@@ -66,20 +94,8 @@ const MainProducts = () => {
         </header>
         <div className="card-body">
           {/* {deleteError && <Error variant="alert-danger">{deleteError}</Error>} */}
-          {isLoading && <Loading />}
-          {isLoading ? (
-            <Loading />
-          ) : isError ? (
-            <Error variant="alert-danger">{error}</Error>
-          ) : (
-            <div className="row">
-              {products?.map((product, i) => (
-                <Product product={product} key={i} />
-              ))}
-            </div>
-          )}
-
-          <nav className="float-end mt-4" aria-label="Page navigation">
+          {content}
+          {/* <nav className="float-end mt-4" aria-label="Page navigation">
             <ul className="pagination">
               <li className="page-item disabled">
                 <Link to="#" className="page-link">
@@ -107,7 +123,7 @@ const MainProducts = () => {
                 </Link>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
       </div>
     </section>

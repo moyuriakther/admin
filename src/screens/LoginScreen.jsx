@@ -12,7 +12,7 @@ const LoginScreen = () => {
   // const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [adminLogin, { isError, isLoading, error, isSuccess }] =
+  const [adminLogin, { isError, isLoading, isSuccess }] =
     useAdminLoginMutation();
   // console.log(isError, isSuccess, isLoading, error);
   useEffect(() => {
@@ -34,7 +34,7 @@ const LoginScreen = () => {
         style={{ maxWidth: "380px", marginTop: "100px" }}
       >
         <div className="card-body">
-          {isError && <Error variant="alert-danger">{error}</Error>}
+          {isError && <Error variant="alert-danger">{"error"}</Error>}
           {isLoading && <Loading />}
           <h4 className="card-title mb-4 text-center">Sign in</h4>
           <form onSubmit={handleSubmit}>

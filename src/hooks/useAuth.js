@@ -1,11 +1,15 @@
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function useAuth() {
-  // const auth = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
   const authData = JSON.parse(localStorage.getItem("auth"));
-  // console.log(authData);
-  if (authData?.accessToken && authData?.user) {
-    return authData?.user.isAdmin;
+  const userInfo = authData?.user;
+  // console.log(auth, "hello");
+  // console.log(userInfo, "aje baje");
+  if (userInfo?.token && userInfo) {
+    return userInfo?.isAdmin;
+  } else if (auth?.token && auth) {
+    return true;
   } else {
     return false;
   }
