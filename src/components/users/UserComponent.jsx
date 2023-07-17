@@ -1,17 +1,30 @@
 // import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import favicon from "../../images/favicon.png";
-// import { useDispatch, useSelector } from "react-redux";
-// import { allUsersList } from "../../Redux/Actions/userActions";
-// import Loading from "../loadingErrors/Loading.jsx";
-// import Error from "../loadingErrors/Error.jsx";
+import { useAllUsersListQuery } from "../../features/auth/authApi";
+import Loading from "../loadingErrors/Loading.jsx";
+import Error from "../loadingErrors/Error.jsx";
+import SingleUser from "./SingleUser";
 
 const UserComponent = () => {
-  const users = ["User1", "User2", "User3"];
-  // const dispatch = useDispatch();
-
-  // const userList = useSelector((state) => state.userList);
-  // const { loading, error, users } = userList;
+  const { data: users, isLoading, isError, error } = useAllUsersListQuery();
+  // decide what to render
+  let content;
+  if (isLoading) {
+    content = <Loading />;
+  }
+  if (!isLoading && isError) {
+    content = <Error variant="alert-danger">{error}</Error>;
+  } else if (!isLoading && !isError && users?.length === 0) {
+    content = <div>Users Not available</div>;
+  } else if (!isLoading && !isError && users?.length > 0) {
+    content = (
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
+        {users.map((user, i) => (
+          <SingleUser user={user} key={i} />
+        ))}
+      </div>
+    );
+  }
 
   // useEffect(() => {
   //   dispatch(allUsersList());
@@ -57,39 +70,7 @@ const UserComponent = () => {
         </header>
         {/* card */}
         <div className="card-body">
-          {/* {loading ? (
-            <Loading />
-          ) : error ? (
-            <Error variant="alert-danger">{error}</Error>
-          ) : ( */}
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4">
-            {/* user */}
-            {users?.map((user) => (
-              <div className="col" key={user?._id}>
-                <div className="card card-user shadow-sm">
-                  <div className="card-header">
-                    <img
-                      className="img-md img-avatar"
-                      src={favicon}
-                      alt="User pic"
-                    />
-                  </div>
-                  <div className="card-body">
-                    <h5 className="card-title mt-5">
-                      <p className="m-0">{user?.name}</p>
-                    </h5>
-                    <div className="card-text text-muted">
-                      {user?.isAdmin ? "Admin" : "Customer"}
-                      <p>
-                        <a href={`mailto:${user?.email}`}>{user?.email}</a>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* )} */}
+          {content}
 
           {/* nav */}
           <nav className="float-end mt-4" aria-label="Page navigation">

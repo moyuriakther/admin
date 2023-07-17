@@ -1,11 +1,24 @@
-// import Orders from "./Orders";
+import Orders from "./Orders";
 // import { useSelector } from "react-redux";
-// import Loading from "../loadingErrors/Loading";
-// import Error from "../loadingErrors/Error";
+import Loading from "../loadingErrors/Loading";
+import Error from "../loadingErrors/Error";
+
+import { useAllOrdersListQuery } from "../../features/orders/ordersApi";
 
 const OrderMain = () => {
-  // const ordersList = useSelector((state) => state.ordersList);
-  // const { loading, error, orders } = ordersList;
+  const { data: orders, isError, isLoading, error } = useAllOrdersListQuery();
+  // decide what to render
+  let content;
+  if (isLoading) {
+    content = <Loading />;
+  }
+  if (!isLoading && isError) {
+    content = <Error variant="alert-danger">{error}</Error>;
+  } else if (!isLoading && !isError && orders?.length === 0) {
+    content = <div>Orders Not available</div>;
+  } else if (!isLoading && !isError && orders?.length > 0) {
+    content = <Orders orders={orders} />;
+  }
   return (
     <section className="content-main">
       <div className="content-header">
@@ -39,15 +52,7 @@ const OrderMain = () => {
           </div>
         </header>
         <div className="card-body">
-          <div className="table-responsive">
-            {/* {loading ? (
-              <Loading />
-            ) : error ? (
-              <Error variant="alert-danger">{error}</Error>
-            ) : (
-              <Orders orders={orders} />
-            )} */}
-          </div>
+          <div className="table-responsive">{content}</div>
         </div>
       </div>
     </section>

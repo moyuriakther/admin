@@ -7,7 +7,6 @@ import LoginScreen from "./screens/LoginScreen";
 import ProductsScreen from "./screens/ProductsScreen";
 import AddProductScreen from "./screens/AddProductScreen";
 import EditProductScreen from "./screens/EditProductScreen";
-import CategoriesScreen from "./screens/CategoriesScreen";
 import OrderScreen from "./screens/OrderScreen";
 import OrderDetailsScreen from "./screens/OrderDetailsScreen";
 import NotFound from "./screens/NotFound";
@@ -48,14 +47,6 @@ function App() {
           element={
             <PrivateRoute>
               <EditProductScreen />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/category"
-          element={
-            <PrivateRoute>
-              <CategoriesScreen />
             </PrivateRoute>
           }
         />

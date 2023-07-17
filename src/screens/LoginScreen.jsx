@@ -22,7 +22,6 @@ const LoginScreen = () => {
   }, [isSuccess, navigate]);
 
   const handleSubmit = (e) => {
-    console.log(email, password);
     e.preventDefault();
     adminLogin({ email, password });
   };
