@@ -12,7 +12,7 @@ export const quizMarkApi = apiSlice.injectEndpoints({
       query: (order) => ({
         url: `/api/orders/${order._id}/delivered`,
         method: "PUT",
-        // body: data,
+        body: order,
       }),
     }),
   }),

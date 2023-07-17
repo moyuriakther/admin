@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 const Orders = ({ orders }) => {
-  console.log(orders);
+  // console.log(orders);
   return (
     <table className="table">
       <thead>

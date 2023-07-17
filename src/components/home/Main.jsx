@@ -1,14 +1,19 @@
 import SalesStatistics from "./SalesStatistics";
-// import TopTotal from "./TopTotal";
+import TopTotal from "./TopTotal";
 import ProductsStatistics from "./ProductsStatistics";
-// import LatestOrder from "./LatestOrder";
+import { useAllOrdersListQuery } from "../../features/orders/ordersApi";
+import LatestOrder from "./LatestOrder";
+import { useAllProductsListQuery } from "../../features/products/productsApi";
 // import { useSelector } from "react-redux";
 
 const Main = () => {
-  // const ordersList = useSelector((state) => state.ordersList);
-  // const { loading, error, orders } = ordersList;
-  // const productList = useSelector((state) => state.productList);
-  // const { products } = productList;
+  const { data: orders, isLoading, error } = useAllOrdersListQuery();
+  const {
+    data: products,
+    // isLoading: productLoading,
+    // isError: isProductError,
+    // error: productError,
+  } = useAllProductsListQuery();
   return (
     <>
       <section className="content-main">
@@ -16,7 +21,7 @@ const Main = () => {
           <h2 className="content-title">Dashboard</h2>
         </div>
         {/* top total */}
-        {/* <TopTotal orders={orders} products={products} /> */}
+        <TopTotal orders={orders} products={products} />
         <div className="row">
           {/* statics */}
           <SalesStatistics />
@@ -24,7 +29,7 @@ const Main = () => {
         </div>
         {/* latest orders */}
         <div className="card mb-4 shadow-sm">
-          {/* <LatestOrder orders={orders} loading={loading} error={error} /> */}
+          <LatestOrder orders={orders} loading={isLoading} error={error} />
         </div>
       </section>
     </>
