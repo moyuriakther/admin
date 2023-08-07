@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";
 import Error from "../components/loadingErrors/Error";
 import Loading from "../components/loadingErrors/Loading";
@@ -8,18 +8,18 @@ import { useAdminLoginMutation } from "../features/auth/authApi.js";
 
 const LoginScreen = () => {
   window.scrollTo(0, 0);
+  const location = useLocation();
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const redirect = location?.search ? location?.search.split("=")[1] : "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [adminLogin, { isError, isLoading, isSuccess }] =
-    useAdminLoginMutation();
-  // console.log(isError, isSuccess, isLoading, error);
+  const [adminLogin, { data, isError, isLoading }] = useAdminLoginMutation();
+
   useEffect(() => {
-    if (isSuccess) {
-      navigate("/");
+    if (data) {
+      navigate(redirect);
     }
-  }, [isSuccess, navigate]);
+  }, [data, navigate, redirect]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
