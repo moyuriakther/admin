@@ -42,7 +42,7 @@ const UserComponent = () => {
         </div>
       </div>
       <div className="card mb-4">
-        <header className="card-header">
+        {/* <header className="card-header">
           <div className="row gx-3">
             <div className="col-lg-4 col-md-6 me-auto">
               <input
@@ -67,13 +67,13 @@ const UserComponent = () => {
               </select>
             </div>
           </div>
-        </header>
+        </header> */}
         {/* card */}
         <div className="card-body">
           {content}
 
           {/* nav */}
-          <nav className="float-end mt-4" aria-label="Page navigation">
+          {/* <nav className="float-end mt-4" aria-label="Page navigation">
             <ul className="pagination">
               <li className="page-item disabled">
                 <Link className="page-link" to="#">
@@ -91,7 +91,7 @@ const UserComponent = () => {
                 </Link>
               </li>
             </ul>
-          </nav>
+          </nav> */}
         </div>
       </div>
     </section>

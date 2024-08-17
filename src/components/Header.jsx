@@ -46,7 +46,7 @@ const Header = () => {
   };
   return (
     <header className="main-header navbar">
-      <div className="col-search">
+      {/* <div className="col-search">
         <form className="searchform" onSubmit={handleSubmit}>
           <div className="input-group">
             <input
@@ -56,19 +56,24 @@ const Header = () => {
               placeholder="Search term"
               onChange={(e) => setSearchValue(e.target.value)}
             />
-            {/* <button className="btn btn-light bg" type="button">
+           <button className="btn btn-light bg" type="button">
               <i className="far fa-search"></i>
-            </button> */}
+            </button> 
           </div>
-          {/* <datalist id="search-terms">
+      <datalist id="search-terms">
             <option value="Products">Products</option>
             <option value="New orders">New orders</option>
             <option value="Apple iphone">Apple iphone</option>
             <option value="Moyuri akther">Moyuri akther</option>
-          </datalist> */}
+          </datalist>
         </form>
+      </div> */}
+      <div className="logout-container">
+          <Link to="/addproduct" className="btn btn-danger text-white" onClick={handleLogout}>
+              Logout
+          </Link>
       </div>
-      <div className="col-nav">
+      {/* <div className="col-nav">
         <button
           className="btn btn-icon btn-mobile me-auto"
           data-trigger="#offcanvas_aside"
@@ -112,7 +117,7 @@ const Header = () => {
             </div>
           </li>
         </ul>
-      </div>
+      </div> */}
     </header>
   );
 };

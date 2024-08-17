@@ -84,7 +84,7 @@ const Sidebar = () => {
                 <span className="text">Users</span>
               </NavLink>
             </li>
-            <li className="menu-item">
+            {/* <li className="menu-item">
               <NavLink
                 className="menu-link"
                 activeclassname="active"
@@ -93,8 +93,8 @@ const Sidebar = () => {
                 <i className="icon fas fa-store-alt"></i>
                 <span className="text">Sellers</span>
               </NavLink>
-            </li>
-            <li className="menu-item">
+            </li> */}
+            {/* <li className="menu-item">
               <NavLink
                 className="menu-link"
                 activeclassname="active"
@@ -103,7 +103,7 @@ const Sidebar = () => {
                 <i className="icon fas fa-usd-circle"></i>
                 <span className="text">Transactions</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
           <br />
         </nav>

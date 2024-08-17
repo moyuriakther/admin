@@ -75,7 +75,7 @@ const MainProducts = () => {
                 onChange={handleSearch}
               />
             </div>
-            <div className="col-lg-2 col-6 col-md-3">
+            {/* <div className="col-lg-2 col-6 col-md-3">
               <select className="form-select">
                 <option>All category</option>
                 <option>Women</option>
@@ -88,7 +88,7 @@ const MainProducts = () => {
                 <option>Low To High</option>
                 <option>High To Low</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </header>
         <div className="card-body">

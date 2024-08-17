@@ -153,6 +153,9 @@ body.offcanvas-active {
   background-color: #fff;
   border-bottom: 1px solid rgba(108, 117, 125, 0.25);
 }
+.logout-container {
+  margin-left: auto;
+}
 .main-header .nav {
   align-items: center;
 }
