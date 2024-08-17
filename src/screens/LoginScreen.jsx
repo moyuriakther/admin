@@ -36,6 +36,8 @@ const LoginScreen = () => {
           {isError && <Error variant="alert-danger">{"error"}</Error>}
           {isLoading && <Loading />}
           <h4 className="card-title mb-4 text-center">Sign in</h4>
+          <p style={{marginBottom: 0}}><span style={{fontWeight: "bold"}}>Login Email: </span>admin2@gmail.com</p>
+          <p><span style={{fontWeight: "bold"}}>Login Password: </span>admin2023</p>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
